@@ -1,6 +1,7 @@
 //JSON URL
 
 // https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson
+//https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson
 
 
 
@@ -13,8 +14,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
 }).addTo(map);
 
-// Fetch earthquake data
+// Fetch earthquake data for Daily
 d3.json('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson').then(function(data) {
+
+//https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson
+
+
     // Function to determine marker size based on magnitude
     function markerSize(magnitude) {
         return magnitude * 4; // Adjust the multiplier as needed
@@ -49,17 +54,36 @@ d3.json('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojs
         .bindPopup("Magnitude: " + magnitude + "<br>Depth: " + depth + " km<br>" + feature.properties.place);
     });
 
+    // // Create a legend
+    // var legend = L.control({position: 'bottomright'});
+    // legend.onAdd = function () {
+    //     var div = L.DomUtil.create('div', 'legend');
+    //     div.innerHTML += '<strong>Depth (km)</strong><br>';
+    //     div.innerHTML += '<i style="background: #FF0000"></i> > 100<br>';
+    //     div.innerHTML += '<i style="background: #FF7F00"></i> 50 - 100<br>';
+    //     div.innerHTML += '<i style="background: #FFFF00"></i> 20 - 50<br>';
+    //     div.innerHTML += '<i style="background: #7FFF00"></i> 0 - 20<br>';
+    //     div.innerHTML += '<i style="background: #00FF00"></i> < 0<br>';
+    //     return div;
+    // };
+    // legend.addTo(map);
+
+
+
     // Create a legend
-    var legend = L.control({position: 'bottomright'});
-    legend.onAdd = function () {
-        var div = L.DomUtil.create('div', 'legend');
-        div.innerHTML += '<strong>Depth (km)</strong><br>';
-        div.innerHTML += '<i style="background: #FF0000"></i> > 100<br>';
-        div.innerHTML += '<i style="background: #FF7F00"></i> 50 - 100<br>';
-        div.innerHTML += '<i style="background: #FFFF00"></i> 20 - 50<br>';
-        div.innerHTML += '<i style="background: #7FFF00"></i> 0 - 20<br>';
-        div.innerHTML += '<i style="background: #00FF00"></i> < 0<br>';
-        return div;
-    };
-    legend.addTo(map);
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function () {
+    var div = L.DomUtil.create('div', 'legend');
+    div.innerHTML += '<strong>Depth (km)</strong><br>';
+    div.innerHTML += '<i style="background: #FF0000"></i> > 100<br>';
+    div.innerHTML += '<i style="background: #FF7F00"></i> 50 - 100<br>';
+    div.innerHTML += '<i style="background: #FFFF00"></i> 20 - 50<br>';
+    div.innerHTML += '<i style="background: #7FFF00"></i> 0 - 20<br>';
+    div.innerHTML += '<i style="background: #00FF00"></i> < 0<br>';
+    return div;
+};
+
+// Adding the legend to the map
+legend.addTo(map);
 });
