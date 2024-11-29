@@ -87,3 +87,8 @@ legend.onAdd = function () {
 // Adding the legend to the map
 legend.addTo(map);
 });
+
+
+
+
+
